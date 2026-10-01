@@ -52,8 +52,20 @@ src/
   shared/               Constants and types shared with the mobile apps
 public/
   images/trades/        Self-hosted trade photography
-  downloads/            Built APKs
+  downloads/            Local APK build output (gitignored, not deployed)
 ```
+
+APKs are deliberately not committed here — each is ~98 MB, which makes the repo
+unusable to clone and push. The download buttons in `/for-homeowners` and
+`/for-pros` point at the GitHub Release assets of the two app repositories
+instead:
+
+- `mhklogs/fixit-home-android` → `FixItHome.apk`
+- `mhklogs/profixit-android` → `ProFixit.apk`
+
+Those assets are produced by each repo's `Build APK` workflow. Note the download
+buttons are only live once a release asset has actually been published — a
+`releases/latest/download/...` URL with no asset attached returns 404.
 
 `src/shared/` is a vendored copy of the monorepo's `packages/shared`, so this repo
 builds and deploys entirely on its own without a workspace.
@@ -72,8 +84,27 @@ Set `NEXT_PUBLIC_SITE_URL` to the canonical origin. Left unset it falls back to
 
 ## Deploying
 
-Connected to the Vercel project `fixit-web-rom`, so a push to `main` deploys to
-production automatically at https://fixit-web-rom.vercel.app.
+This repo is the Vercel project `fixit-web-rom`, serving production at
+https://fixit-web-rom.vercel.app.
+
+**Auto-deploy is not enabled yet.** The Vercel GitHub App is not installed on the
+`mhklogs` account, so Vercel cannot see this repository. To turn on
+push-to-deploy, install the app and connect the repo:
+
+1. Install the Vercel GitHub App: <https://github.com/apps/vercel>
+   (grant it access to `fixit-landing`).
+2. In the Vercel project settings, connect the Git repository
+   `mhklogs/fixit-landing` with `main` as the production branch.
+
+Until then, deploy from a clone with the project already linked (`.vercel/`
+is gitignored, so link it once):
+
+```sh
+vercel link --project fixit-web-rom
+vercel --prod
+```
+
+`vercel.json` pins the `nextjs` framework preset so builds are deterministic.
 
 ## Related repositories
 
