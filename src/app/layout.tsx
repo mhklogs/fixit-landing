@@ -2,7 +2,11 @@ import type { Metadata } from 'next';
 import './globals.css';
 import { HOME_BRAND, PLATFORM_NAME, PRO_BRAND } from '@/shared';
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://fixit-web-rom.vercel.app';
+// `||` rather than `??`: an empty-string env var must fall back too, otherwise
+// `new URL('')` throws and takes the whole build down.
+const siteUrl = (
+  process.env.NEXT_PUBLIC_SITE_URL || 'https://fixit-web-rom.vercel.app'
+).replace(/\/+$/, '');
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),

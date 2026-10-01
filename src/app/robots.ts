@@ -1,6 +1,10 @@
 import type { MetadataRoute } from 'next';
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://fixit-web-rom.vercel.app';
+// `||` rather than `??`: an empty-string env var must fall back too, otherwise
+// `new URL('')` throws and takes the whole build down.
+const siteUrl = (
+  process.env.NEXT_PUBLIC_SITE_URL || 'https://fixit-web-rom.vercel.app'
+).replace(/\/+$/, '');
 
 export default function robots(): MetadataRoute.Robots {
   return {

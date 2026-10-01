@@ -13,7 +13,11 @@ import {
   TRADE_CATEGORIES,
 } from '@/shared';
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://fixit-web-rom.vercel.app';
+// `||` rather than `??`: an empty-string env var must fall back too, otherwise
+// `new URL('')` throws and takes the whole build down.
+const siteUrl = (
+  process.env.NEXT_PUBLIC_SITE_URL || 'https://fixit-web-rom.vercel.app'
+).replace(/\/+$/, '');
 
 export const metadata = {
   title: `${HOME_BRAND} — Post a Home Repair Job Free, Watch Local Pros Bid Live`,
