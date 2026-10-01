@@ -1,0 +1,46 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Next.js build output
+.next/
+out/
+build/
+dist/
+
+# Vercel
+.vercel
+
+# Environment — never commit real secrets
+.env
+.env.local
+.env*.local
+!.env.example
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.pem
+.vercel
+next-env.d.ts.timestamp
+
+# TypeScript
+*.tsbuildinfo
+
+# Local databases
+*.db
+*.db-shm
+*.db-wal
+
+# Built APKs. These are ~98MB each, so they must never enter git history.
+# They are published as GitHub Release assets on the app repositories instead:
+#   fixit-home-android  -> FixItHome.apk
+#   profixit-android    -> ProFixit.apk
+public/downloads/*.apk
