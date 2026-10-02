@@ -3,9 +3,10 @@ name: Deploy to Vercel
 # Push-to-deploy. The Vercel GitHub App is not installed on this account, so
 # Vercel cannot see the repo natively and the deploy runs from Actions instead.
 #
-# The job is gated on vars.VERCEL_DEPLOY_ENABLED (a repo variable) rather than on
-# the token: `secrets` is not in the allowed context list for a job-level `if`,
-# and referencing it there makes the whole workflow invalid.
+# Note: `secrets` cannot appear inside any `if` expression here. On this account
+# doing so makes GitHub reject the whole file — the run fails with zero jobs.
+# So the token is read into env, tested in a shell step, and the deploy is gated
+# on that step's output instead.
 on:
   push:
     branches: [main]
@@ -19,13 +20,22 @@ jobs:
   deploy:
     if: ${{ vars.VERCEL_DEPLOY_ENABLED == 'true' }}
     runs-on: ubuntu-latest
-    environment: production
     steps:
       - uses: actions/checkout@v4
 
-      # Step-level `if` does allow secrets, so the token gate lives here.
-      - name: Deploy
-        if: ${{ secrets.VERCEL_TOKEN != '' }}
+      - name: Check for deploy token
+        id: check
+        env:
+          TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: |
+          if [ -z "$TOKEN" ]; then
+            echo "available=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "available=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Deploy to production
+        if: steps.check.outputs.available == 'true'
         uses: amondnet/vercel-action@v25
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
@@ -34,9 +44,9 @@ jobs:
           vercel-args: '--prod'
 
       - name: Explain skipped deploy
-        if: ${{ secrets.VERCEL_TOKEN == '' }}
+        if: steps.check.outputs.available != 'true'
         run: |
           echo "::warning title=Deploy skipped::No VERCEL_TOKEN secret on this repo."
-          echo "Create one at https://vercel.com/account/tokens and add it with:"
+          echo "Create a token at https://vercel.com/account/tokens then add it with:"
           echo "  gh secret set VERCEL_TOKEN --repo ${{ github.repository }} --body '<token>'"
-          echo "Until then, deploy manually with: vercel --prod"
+          echo "Until then, deploy manually from a clone with the project linked: vercel --prod"
