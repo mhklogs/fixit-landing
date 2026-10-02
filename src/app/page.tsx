@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Nav from '@/components/nav';
 import Footer from '@/components/footer';
 import RadarMockup from '@/components/radar-mockup';
-import { IMG, AVATARS } from '@/lib/images';
+import { IMG } from '@/lib/images';
 import {
   HOME_BRAND,
   PRO_BRAND,
@@ -171,27 +171,18 @@ const PRO_FEATURES = [
   },
 ];
 
-const TESTIMONIALS = [
+const DIFFERENCES = [
   {
-    quote:
-      'I posted a burst pipe at nine in the morning. Three plumbers had sent offers by twenty past nine. I picked the one who could come the same day, and the money was only released after he showed me the finished work. No call centre, no arguing over a quote.',
-    name: 'Maria G.',
-    role: 'Homeowner',
-    avatar: AVATARS.homeG,
+    h: 'You set the price, not the platform',
+    p: `A lead marketplace decides who sees your job and charges you for the privilege. Here you decide. Contractors bid against each other on the work you actually described, and you pick from real prices.`,
   },
   {
-    quote:
-      'I am an HVAC contractor. Thirty cents an offer costs me less than one missed job. I set my own price and my own arrival time instead of paying fifty dollars a lead to a call centre that never sends anyone.',
-    name: 'DeShawn W.',
-    role: 'HVAC contractor',
-    avatar: AVATARS.proM,
+    h: 'Paying per offer, not per month',
+    p: `Contractors pay ${BID_FEE_USD.toFixed(2)} for an offer they choose to send. No subscription, no listing fee, and nothing at all if a contractor sends no bids.`,
   },
   {
-    quote:
-      'As an electrician I compete on price and speed, not on how much I spend on advertising. The money is in my wallet seconds after the homeowner signs off, and I keep ninety-six cents of every dollar.',
-    name: 'Jaime R.',
-    role: 'Electrical contractor',
-    avatar: AVATARS.proF,
+    h: 'Money moves only when the job is done',
+    p: 'Payment is held by Stripe from the moment you accept an offer until you confirm the work is finished. The contractor is not paid for a job you have not signed off.',
   },
 ];
 
@@ -206,7 +197,7 @@ const FAQ = [
   },
   {
     q: 'How quickly will I get offers?',
-    a: 'The median is about eleven minutes from posting to first offer, and urgent jobs routinely get their first offer in under a minute. It depends on your trade and how many contractors are working near you.',
+    a: 'It depends on your trade and how many contractors are working near you. Urgent jobs are surfaced to contractors who have switched on urgent alerts, so they tend to get offers first. We publish real response times once there is enough live traffic to measure.',
   },
   {
     q: 'What does a contractor pay?',
@@ -379,8 +370,8 @@ export default function Home() {
 
             <dl className="mt-10 grid max-w-lg grid-cols-3 gap-6 border-t border-line pt-8">
               {[
-                { value: '< 60s', label: 'to first offer' },
-                { value: '96–97%', label: 'reaches the pro' },
+                { value: '20', label: 'trades covered' },
+                { value: '96–97%', label: 'of each job paid out' },
                 { value: '$0', label: 'cost to you' },
               ].map((s) => (
                 <div key={s.label}>
@@ -665,36 +656,21 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ============ TESTIMONIALS ============ */}
-      <section aria-labelledby="testimonials-heading" className="section bg-white">
+      {/* ============ DIFFERENCES ============ */}
+      <section aria-labelledby="differences-heading" className="section bg-white">
         <div className="shell">
           <div className="max-w-2xl">
-            <h2 id="testimonials-heading" className="text-3xl font-extrabold tracking-tight sm:text-4xl">
-              Used on both sides of the job
+            <h2 id="differences-heading" className="text-3xl font-extrabold tracking-tight sm:text-4xl">
+              How this differs from paying for leads
             </h2>
           </div>
 
-          <div className="mt-12 grid gap-6 lg:grid-cols-3">
-            {TESTIMONIALS.map((t) => (
-              <figure key={t.name} className="card flex flex-col p-7">
-                <div aria-label="Five out of five stars" className="mb-4 text-amber-500">
-                  ★★★★★
-                </div>
-                <blockquote className="flex-1 leading-relaxed text-ink-muted">{t.quote}</blockquote>
-                <figcaption className="mt-6 flex items-center gap-3 border-t border-line pt-5">
-                  <Image
-                    src={t.avatar}
-                    alt=""
-                    width={100}
-                    height={100}
-                    className="h-11 w-11 rounded-full object-cover"
-                  />
-                  <span>
-                    <span className="block font-bold">{t.name}</span>
-                    <span className="block text-sm text-ink-muted">{t.role}</span>
-                  </span>
-                </figcaption>
-              </figure>
+          <div className="mt-12 grid gap-8 md:grid-cols-3">
+            {DIFFERENCES.map((d) => (
+              <div key={d.h}>
+                <h3 className="text-lg font-bold text-brand">{d.h}</h3>
+                <p className="mt-2 leading-relaxed text-ink-muted">{d.p}</p>
+              </div>
             ))}
           </div>
         </div>

@@ -91,7 +91,7 @@ export default function ForHomeownersPage() {
             </div>
             <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-4">
               {[
-                { value: '< 60s', label: 'to first bid' },
+                { value: '20', label: 'trades covered' },
                 { value: '$0', label: 'for homeowners' },
                 { value: 'Escrow', label: 'money safe till done' },
                 { value: '4.9★', label: 'from real jobs' },
