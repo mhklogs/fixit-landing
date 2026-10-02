@@ -1,0 +1,28 @@
+name: Deploy to Vercel
+
+# Deploys on every push to main, but only once a Vercel token is present.
+# The guard keeps pushes green for anyone cloning the repo without secrets.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: vercel-production
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    if: ${{ vars.VERCEL_ORG_ID != '' && secrets.VERCEL_TOKEN != '' }}
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Deploy
+        uses: amondnet/vercel-action@v25
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ vars.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ vars.VERCEL_PROJECT_ID }}
+          vercel-args: '--prod'
