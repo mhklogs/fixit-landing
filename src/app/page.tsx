@@ -405,30 +405,6 @@ export default function Home() {
                 priority
               />
             </div>
-            <div className="mt-4 rounded-2xl border border-line bg-white p-5 shadow-card">
-              <p className="flex items-center gap-2 text-xs font-bold uppercase tracking-wide text-ink-muted">
-                <span className="relative flex h-2 w-2">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand opacity-60" />
-                  <span className="relative inline-flex h-2 w-2 rounded-full bg-brand" />
-                </span>
-                Offers coming in for &ldquo;water heater leaking&rdquo;
-              </p>
-              <ul className="mt-3 space-y-2.5">
-                {[
-                  { name: 'Marcus · HVAC', price: '$349', eta: '14 min' },
-                  { name: 'Green Line Plumbing', price: '$395', eta: '22 min' },
-                  { name: 'Ace Handyman Co.', price: '$275', eta: '45 min' },
-                ].map((b) => (
-                  <li key={b.name} className="flex items-center justify-between gap-3 text-sm">
-                    <span className="font-medium text-ink">{b.name}</span>
-                    <span className="flex items-center gap-3">
-                      <span className="text-xs text-ink-muted">arrives {b.eta}</span>
-                      <span className="font-bold text-brand">{b.price}</span>
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </div>
           </div>
         </div>
       </section>
