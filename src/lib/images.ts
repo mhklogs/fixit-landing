@@ -26,6 +26,8 @@ export const IMG = {
   sidingEnvelope: '/images/trades/siding-envelope.png',
   concretePavingMasonry: '/images/trades/concrete-paving-masonry.png',
   pestControl: '/images/trades/pest-control.png',
+  windowsDoors: '/images/trades/windows-doors.png',
+  kitchenAndBath: '/images/trades/kitchen-and-bath.png',
 };
 
 export const AVATARS = {

@@ -32,35 +32,41 @@ export const metadata = {
   },
 };
 
+// Industry photography, mapped so a card never shows a picture that
+// contradicts its own label. Sources are either the self-hosted trade photos
+// under public/images/trades (named for the trade they show) or the Unsplash
+// shots in src/lib/images.ts, which are keyed by the trade they depict.
+//
+// Categories absent from this map have no image we can vouch for, so they
+// render a branded tile instead. Do not add a photo here unless it genuinely
+// shows that trade — a wrong picture reads as a broken marketplace.
+const TRADE_IMAGES: Record<string, string> = {
+  plumbing: IMG.plumbing,
+  electrical: IMG.electrical,
+  hvac: IMG.hvac,
+  hvac_repair: IMG.hvac,
+  roofing: IMG.roofing,
+  painting: IMG.painting,
+  cleaning: IMG.cleaning,
+  landscaping: IMG.landscapingExterior,
+  pest_control: IMG.pestControl,
+  kitchen_remodel: IMG.kitchenRemodel,
+  bathroom_remodel: IMG.kitchenAndBath,
+  flooring: IMG.floorTimberTiling,
+  garage_door: IMG.garageDoor,
+  windows_doors: IMG.windowsDoors,
+  handyman: IMG.contractorOnSite,
+  renovation: IMG.concretePavingMasonry,
+  general: IMG.team,
+};
+
 const SERVICES = TRADE_CATEGORIES.map((cat) => {
   const name = TRADE_LABELS[cat] ?? cat;
-  const imgMap: Record<string, string> = {
-    hvac: IMG.hvac,
-    hvac_repair: IMG.cleaning,
-    plumbing: IMG.plumbing,
-    electrical: IMG.electrical,
-    roofing: IMG.sidingEnvelope,
-    painting: IMG.painting,
-    cleaning: IMG.homeInterior,
-    landscaping: IMG.landscapingExterior,
-    pest_control: IMG.pestControl,
-    kitchen_remodel: IMG.kitchenRemodel,
-    bathroom_remodel: IMG.decksPatiosCarpentry,
-    flooring: IMG.floorTimberTiling,
-    garage_door: IMG.garageDoor,
-    handyman: IMG.contractorOnSite,
-    appliance_repair: IMG.appPhone,
-    windows_doors: IMG.heroCard,
-    moving: IMG.hero,
-    locksmith: IMG.general,
-    renovation: IMG.concretePavingMasonry,
-    general: IMG.team,
-  };
   return {
     cat,
     name,
     emoji: TRADE_EMOJI[cat] ?? '🛠️',
-    img: imgMap[cat] ?? IMG.general,
+    img: TRADE_IMAGES[cat] ?? null,
   };
 });
 
@@ -475,13 +481,22 @@ export default function Home() {
               <li key={s.cat}>
                 <Link href="/signup" className="group block">
                   <div className="relative overflow-hidden rounded-2xl">
-                    <Image
-                      src={s.img}
-                      alt={`${s.name} services`}
-                      width={800}
-                      height={500}
-                      className="h-44 w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
+                    {s.img ? (
+                      <Image
+                        src={s.img}
+                        alt={`${s.name} services`}
+                        width={800}
+                        height={500}
+                        className="h-44 w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                    ) : (
+                      <div
+                        aria-hidden
+                        className="flex h-44 w-full items-center justify-center bg-gradient-to-br from-brand/15 via-brand/10 to-brand-vivid/25"
+                      >
+                        <span className="text-5xl">{s.emoji}</span>
+                      </div>
+                    )}
                   </div>
                   <h3 className="mt-3 text-base font-bold text-ink">
                     <span aria-hidden>{s.emoji} </span>
