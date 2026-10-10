@@ -2,6 +2,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import Nav from '@/components/nav';
 import Footer from '@/components/footer';
+import DarkBg from '@/components/dark-bg';
+import { Reveal, Eyebrow } from '@/components/motion';
 import { IMG } from '@/lib/images';
 import { HOME_BRAND, PRO_BRAND } from '@/shared';
 
@@ -64,47 +66,62 @@ export const metadata = {
 
 export default function ForHomeownersPage() {
   return (
-    <>
+    <div className="theme-dark min-h-screen bg-night-950 text-white">
+      <DarkBg />
       <Nav />
 
       {/* HERO */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-brand-soft/70 to-canvas">
-        <div aria-hidden className="pointer-events-none absolute right-[-10%] top-[-20%] h-[30rem] w-[30rem] rounded-full bg-brand/10 blur-3xl" />
-        <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-4 py-16 sm:px-6 lg:grid-cols-2 lg:py-24">
+      <section className="relative overflow-hidden bg-night-950">
+        <div aria-hidden className="dot-grid-ember grid-fade pointer-events-none absolute inset-0 opacity-50" />
+        <div aria-hidden className="pointer-events-none absolute right-[-10%] top-[-20%] h-[30rem] w-[30rem] rounded-full bg-ember-mid/10 blur-3xl" />
+        <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-4 py-24 sm:px-6 lg:grid-cols-2 lg:py-32">
           <div>
-            <span className="badge bg-white text-brand border border-brand/10 shadow-sm">
-              The homeowner side of {HOME_BRAND}
-            </span>
-            <h1 className="mt-5 text-4xl font-extrabold leading-[1.1] tracking-tight sm:text-5xl lg:text-6xl">
-              Get your home fixed by <span className="text-brand">real locals</span> who compete for your job.
-            </h1>
-            <p className="mt-5 max-w-xl text-lg text-ink-muted">
-              No call centers. No $25 “lead fees” for a random company to call you back.
-              You post one photo, watch verified pros bid live with price and ETA,
-              and pay only when the work is done — held safe in escrow until you sign off.
-            </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <a href="/signup" className="btn-primary text-base">Post a job — it’s free</a>
-              <a href="https://github.com/mhklogs/fixit-home-android/releases/latest/download/FixItHome.apk" className="btn-secondary text-base">
-                Download the FixIt app
-              </a>
-            </div>
-            <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-4">
-              {[
-                { value: '20', label: 'trades covered' },
-                { value: '$0', label: 'for homeowners' },
-                { value: 'Escrow', label: 'money safe till done' },
-                { value: '4.9★', label: 'from real jobs' },
-              ].map((s) => (
-                <div key={s.label}>
-                  <p className="text-2xl font-extrabold">{s.value}</p>
-                  <p className="text-sm text-ink-muted">{s.label}</p>
-                </div>
-              ))}
-            </div>
+            <Reveal>
+              <Eyebrow>The homeowner side of {HOME_BRAND}</Eyebrow>
+            </Reveal>
+            <Reveal delay={0.1}>
+              <h1 className="mt-6 font-display text-4xl font-extrabold leading-[1.05] tracking-tight sm:text-5xl lg:text-[3.6rem]">
+                Get your home fixed by{' '}
+                <span className="text-gradient-ember">real locals</span> who compete for your job.
+              </h1>
+            </Reveal>
+            <Reveal delay={0.2}>
+              <p className="mt-5 max-w-xl text-lg text-zinc-400">
+                No call centers. No $25 “lead fees” for a random company to call you back.
+                You post one photo, watch verified pros bid live with price and ETA,
+                and pay only when the work is done — held safe in escrow until you sign off.
+              </p>
+            </Reveal>
+            <Reveal delay={0.3}>
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                <a href="/signup" className="btn-ember text-base">Post a job — it’s free</a>
+                <a
+                  href="https://github.com/mhklogs/fixit-home-android/releases/latest/download/FixItHome.apk"
+                  className="btn-ember-ghost text-base"
+                >
+                  Download the FixIt app
+                </a>
+              </div>
+            </Reveal>
+            <Reveal delay={0.4}>
+              <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-4">
+                {[
+                  { value: '20', label: 'trades covered' },
+                  { value: '$0', label: 'for homeowners' },
+                  { value: 'Escrow', label: 'money safe till done' },
+                  { value: '4.9★', label: 'from real jobs' },
+                ].map((s) => (
+                  <div key={s.label}>
+                    <p className="font-display text-2xl font-extrabold text-gradient-ember">{s.value}</p>
+                    <p className="text-sm text-zinc-500">{s.label}</p>
+                  </div>
+                ))}
+              </div>
+            </Reveal>
           </div>
-          <div className="relative">
-            <div className="overflow-hidden rounded-3xl shadow-2xl shadow-brand/20">
+
+          <Reveal delay={0.15} className="relative">
+            <div className="overflow-hidden rounded-3xl border border-white/10 shadow-ember-soft">
               <Image
                 src={IMG.hero}
                 alt="A homeowner watching pros bid live for their home repair"
@@ -114,11 +131,11 @@ export default function ForHomeownersPage() {
                 priority
               />
             </div>
-            <div className="absolute -bottom-6 -left-6 hidden w-72 rounded-2xl bg-white p-5 shadow-xl sm:block">
-              <p className="flex items-center gap-2 text-xs font-semibold text-ink-muted uppercase tracking-wide">
+            <div className="absolute -bottom-6 -left-6 hidden w-72 rounded-2xl glass p-5 shadow-[0_20px_50px_-20px_rgba(0,0,0,0.9)] sm:block">
+              <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-ember">
                 <span className="relative flex h-2 w-2">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand opacity-60" />
-                  <span className="relative inline-flex h-2 w-2 rounded-full bg-brand" />
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-ember opacity-60" />
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-ember" />
                 </span>
                 Live bids on your job
               </p>
@@ -129,148 +146,187 @@ export default function ForHomeownersPage() {
                   { name: 'Ace Handyman', price: '$275' },
                 ].map((b) => (
                   <div key={b.name} className="flex items-center justify-between text-sm">
-                    <span className="font-medium text-ink">{b.name}</span>
-                    <span className="font-bold text-brand">{b.price}</span>
+                    <span className="font-medium text-zinc-200">{b.name}</span>
+                    <span className="font-bold text-ember">{b.price}</span>
                   </div>
                 ))}
               </div>
-              <p className="mt-3 rounded-lg bg-brand-soft px-3 py-2 text-xs font-medium text-brand">
+              <p className="mt-3 rounded-lg border border-ember/25 bg-ember/10 px-3 py-2 text-xs font-medium text-ember">
                 You pay $0 — your money sits in escrow until done.
               </p>
             </div>
-          </div>
+          </Reveal>
         </div>
       </section>
 
       {/* HOW IT WORKS */}
-      <section className="py-20">
+      <section className="relative overflow-hidden bg-night-900 py-24">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
-          <div className="max-w-2xl">
-            <span className="badge bg-brand-soft text-brand">How it works</span>
-            <h2 className="mt-4 text-3xl font-extrabold tracking-tight sm:text-4xl">
+          <Reveal className="max-w-2xl">
+            <Eyebrow>How it works</Eyebrow>
+            <h2 className="mt-4 font-display text-3xl font-bold tracking-tight sm:text-4xl">
               From broke to fixed in under an hour
             </h2>
-          </div>
-          <div className="mt-10 grid gap-6 md:grid-cols-3">
-            {steps.map((s) => (
-              <div key={s.n} className="card relative p-7">
-                <span className="grid h-11 w-11 place-items-center rounded-xl bg-brand-soft text-brand font-extrabold">
-                  {s.n}
-                </span>
-                <h3 className="mt-4 text-lg font-bold">{s.t}</h3>
-                <p className="mt-2 text-sm text-ink-muted">{s.b}</p>
-              </div>
+          </Reveal>
+          <div className="mt-10 grid gap-5 md:grid-cols-3">
+            {steps.map((s, i) => (
+              <Reveal key={s.n} delay={i * 0.08} className="h-full">
+                <div className="glass h-full p-7 transition-colors duration-500 hover:border-ember/40">
+                  <span className="grid h-11 w-11 place-items-center rounded-xl bg-gradient-to-br from-ember-soft via-ember to-ember-deep font-extrabold text-ember-ink">
+                    {s.n}
+                  </span>
+                  <h3 className="mt-4 font-display text-lg font-semibold">{s.t}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-zinc-400">{s.b}</p>
+                </div>
+              </Reveal>
             ))}
           </div>
         </div>
       </section>
 
       {/* WHY BETTER THAN THEY KNOW */}
-      <section className="bg-white py-20">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+      <section className="relative overflow-hidden bg-night-950 py-24">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute left-1/2 top-0 h-[30rem] w-[50rem] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgba(212,175,55,0.08),transparent_65%)] blur-2xl"
+        />
+        <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
           <div className="mx-auto max-w-2xl text-center">
-            <span className="badge bg-brand-soft text-brand">Made for homes, not lead-gen</span>
-            <h2 className="mt-4 text-3xl font-extrabold tracking-tight sm:text-4xl">
-              Why {HOME_BRAND} beats the old lead platforms
-            </h2>
-            <p className="mt-3 text-ink-muted">
-              Angi, Thumbtack, HomeAdvisor — they make money selling homeowners to pros.
-              We make money only when a job is actually done right.
-            </p>
+            <Reveal>
+              <Eyebrow>Made for homes, not lead-gen</Eyebrow>
+            </Reveal>
+            <Reveal delay={0.1}>
+              <h2 className="mt-4 font-display text-3xl font-bold tracking-tight sm:text-4xl">
+                Why {HOME_BRAND} beats the old lead platforms
+              </h2>
+            </Reveal>
+            <Reveal delay={0.2}>
+              <p className="mt-3 text-zinc-400">
+                Angi, Thumbtack, HomeAdvisor — they make money selling homeowners to pros.
+                We make money only when a job is actually done right.
+              </p>
+            </Reveal>
           </div>
           <div className="mx-auto mt-12 max-w-3xl space-y-4">
-            {compares.map((c) => (
-              <div key={c.us} className="card grid gap-4 p-6 sm:grid-cols-2">
-                <div>
-                  <p className="flex items-center gap-2 text-sm font-bold text-brand">
-                    <span className="grid h-5 w-5 place-items-center rounded-full bg-brand-soft text-[11px]">✓</span>
-                    {HOME_BRAND}
-                  </p>
-                  <p className="mt-2 text-sm text-ink">{c.us}</p>
+            {compares.map((c, i) => (
+              <Reveal key={c.us} delay={i * 0.06}>
+                <div className="glass grid gap-4 p-6 sm:grid-cols-2">
+                  <div>
+                    <p className="flex items-center gap-2 text-sm font-bold text-ember">
+                      <span className="grid h-5 w-5 place-items-center rounded-full bg-ember/15">✓</span>
+                      {HOME_BRAND}
+                    </p>
+                    <p className="mt-2 text-sm text-zinc-200">{c.us}</p>
+                  </div>
+                  <div className="border-t border-white/10 pt-4 sm:border-l sm:border-t-0 sm:pl-5 sm:pt-0">
+                    <p className="text-sm font-bold text-zinc-500 line-through">Them</p>
+                    <p className="mt-2 text-sm text-zinc-500">{c.them}</p>
+                  </div>
                 </div>
-                <div className="border-t border-slate-100 pt-4 sm:border-l sm:border-t-0 sm:pl-5 sm:pt-0">
-                  <p className="text-sm font-bold text-ink-muted line-through">Them</p>
-                  <p className="mt-2 text-sm text-ink-muted">{c.them}</p>
-                </div>
-              </div>
+              </Reveal>
             ))}
           </div>
         </div>
       </section>
 
       {/* USE CASES */}
-      <section className="py-20">
+      <section className="bg-night-900 py-24">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
-          <div className="max-w-2xl">
-            <span className="badge bg-brand-soft text-brand">Real uses</span>
-            <h2 className="mt-4 text-3xl font-extrabold tracking-tight sm:text-4xl">
+          <Reveal className="max-w-2xl">
+            <Eyebrow>Real uses</Eyebrow>
+            <h2 className="mt-4 font-display text-3xl font-bold tracking-tight sm:text-4xl">
               Built for the jobs you actually have
             </h2>
-          </div>
+          </Reveal>
           <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {useCases.map((u) => (
-              <div key={u.t} className="card p-6">
-                <p className="text-3xl">{u.e}</p>
-                <h3 className="mt-3 font-bold">{u.t}</h3>
-                <p className="mt-1.5 text-sm text-ink-muted">{u.b}</p>
-              </div>
+            {useCases.map((u, i) => (
+              <Reveal key={u.t} delay={(i % 4) * 0.06} className="h-full">
+                <div className="glass h-full p-6 transition-colors duration-500 hover:border-ember/40">
+                  <p className="text-3xl">{u.e}</p>
+                  <h3 className="mt-3 font-display text-lg font-semibold">{u.t}</h3>
+                  <p className="mt-1.5 text-sm leading-relaxed text-zinc-400">{u.b}</p>
+                </div>
+              </Reveal>
             ))}
           </div>
         </div>
       </section>
 
       {/* APP DOWNLOAD */}
-      <section className="bg-slate-950 py-20 text-white">
-        <div className="mx-auto flex max-w-5xl flex-col items-center gap-8 px-4 text-center sm:px-6 lg:flex-row lg:justify-between lg:text-left">
+      <section className="relative overflow-hidden bg-night-950 py-24 text-white">
+        <div aria-hidden className="dot-grid-ember grid-fade pointer-events-none absolute inset-0 opacity-40" />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute left-1/2 top-1/2 h-[28rem] w-[40rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(212,175,55,0.12),transparent_60%)] blur-2xl"
+        />
+        <div className="relative mx-auto flex max-w-5xl flex-col items-center gap-8 px-4 text-center sm:px-6 lg:flex-row lg:justify-between lg:text-left">
           <div>
-            <span className="badge bg-brand text-white">Get the app</span>
-            <h2 className="mt-4 text-3xl font-extrabold tracking-tight sm:text-4xl">
-              FixIt for homeowners — your whole home, one app
-            </h2>
-            <p className="mt-3 max-w-lg text-slate-400">
-              Post jobs, watch bids land live, chat with pros, confirm work, rate and tip —
-              all from your phone. Android APK below; iOS coming to the App Store.
-            </p>
+            <Reveal>
+              <Eyebrow>Get the app</Eyebrow>
+            </Reveal>
+            <Reveal delay={0.1}>
+              <h2 className="mt-4 font-display text-3xl font-bold tracking-tight sm:text-4xl">
+                FixIt for homeowners — your whole home, one app
+              </h2>
+            </Reveal>
+            <Reveal delay={0.2}>
+              <p className="mt-3 max-w-lg text-zinc-400">
+                Post jobs, watch bids land live, chat with pros, confirm work, rate and tip —
+                all from your phone. Android APK below; iOS coming to the App Store.
+              </p>
+            </Reveal>
           </div>
-          <div className="flex flex-col gap-3">
-            <a
-              href="https://github.com/mhklogs/fixit-home-android/releases/latest/download/FixItHome.apk"
-              className="btn bg-white px-6 py-4 text-base text-slate-950 hover:bg-brand-soft"
-            >
-              Download FixIt for Android
-            </a>
-            <span className="text-xs text-slate-500">Direct APK · ~95 MB · Android 8.0+</span>
-          </div>
+          <Reveal delay={0.2}>
+            <div className="flex flex-col items-center gap-3">
+              <a
+                href="https://github.com/mhklogs/fixit-home-android/releases/latest/download/FixItHome.apk"
+                className="btn-ember px-6 py-4 text-base"
+              >
+                Download FixIt for Android
+              </a>
+              <span className="text-xs text-zinc-500">Direct APK · ~95 MB · Android 8.0+</span>
+            </div>
+          </Reveal>
         </div>
       </section>
 
       {/* FAQ */}
-      <section className="bg-white py-20">
+      <section className="bg-night-900 py-24">
         <div className="mx-auto max-w-3xl px-4 sm:px-6">
           <div className="text-center">
-            <span className="badge bg-brand-soft text-brand">FAQ</span>
-            <h2 className="mt-4 text-3xl font-extrabold tracking-tight sm:text-4xl">
-              Questions, answered
-            </h2>
+            <Reveal>
+              <Eyebrow>FAQ</Eyebrow>
+            </Reveal>
+            <Reveal delay={0.1}>
+              <h2 className="mt-4 font-display text-3xl font-bold tracking-tight sm:text-4xl">
+                Questions, answered
+              </h2>
+            </Reveal>
           </div>
           <div className="mt-10 space-y-3">
             {faq.map((f) => (
-              <details key={f.q} className="card group p-5 open:ring-1 open:ring-brand/30">
-                <summary className="flex cursor-pointer list-none items-center justify-between font-semibold [&::-webkit-details-marker]:hidden">
-                  {f.q}
-                  <span className="text-brand transition-transform group-open:rotate-45">＋</span>
-                </summary>
-                <p className="mt-3 text-sm text-ink-muted">{f.a}</p>
-              </details>
+              <Reveal key={f.q}>
+                <details className="group glass px-6 py-5 open:border-ember/40">
+                  <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-semibold text-white [&::-webkit-details-marker]:hidden">
+                    {f.q}
+                    <span className="flex-none text-ember transition-transform group-open:rotate-45">＋</span>
+                  </summary>
+                  <p className="mt-3 text-sm leading-relaxed text-zinc-400">{f.a}</p>
+                </details>
+              </Reveal>
             ))}
           </div>
-          <p className="mt-8 text-center text-sm text-ink-muted">
-            A contractor? See the <Link href="/for-pros" className="font-semibold text-pro hover:underline">{PRO_BRAND} side</Link> — keep 97% of every job.
+          <p className="mt-8 text-center text-sm text-zinc-500">
+            A contractor? See the{' '}
+            <Link href="/for-pros" className="font-semibold text-ember hover:text-ember-soft">
+              {PRO_BRAND} side
+            </Link>{' '}
+            — keep 97% of every job.
           </p>
         </div>
       </section>
 
       <Footer />
-    </>
+    </div>
   );
 }

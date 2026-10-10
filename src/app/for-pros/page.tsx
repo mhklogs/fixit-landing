@@ -2,6 +2,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import Nav from '@/components/nav';
 import Footer from '@/components/footer';
+import DarkBg from '@/components/dark-bg';
+import { Reveal, Eyebrow } from '@/components/motion';
 import { IMG } from '@/lib/images';
 import { HOME_BRAND, PRO_BRAND } from '@/shared';
 
@@ -64,49 +66,64 @@ export const metadata = {
 
 export default function ForProsPage() {
   return (
-    <>
+    <div className="theme-dark min-h-screen bg-night-950 text-white">
+      <DarkBg />
       <Nav />
 
       {/* HERO */}
-      <section className="relative overflow-hidden bg-pro-soft/60">
-        <div aria-hidden className="pointer-events-none absolute right-[-10%] top-[-20%] h-[30rem] w-[30rem] rounded-full bg-pro/10 blur-3xl" />
-        <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-4 py-16 sm:px-6 lg:grid-cols-2 lg:py-24">
+      <section className="relative overflow-hidden bg-night-950">
+        <div aria-hidden className="dot-grid-ember grid-fade pointer-events-none absolute inset-0 opacity-50" />
+        <div aria-hidden className="pointer-events-none absolute right-[-10%] top-[-20%] h-[30rem] w-[30rem] rounded-full bg-ember-mid/10 blur-3xl" />
+        <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-4 py-24 sm:px-6 lg:grid-cols-2 lg:py-32">
           <div>
-            <span className="badge bg-white text-pro border border-pro/10 shadow-sm">
-              The worker side of {HOME_BRAND}
-            </span>
-            <h1 className="mt-5 text-4xl font-extrabold leading-[1.1] tracking-tight sm:text-5xl lg:text-6xl">
-              Own your lead flow. <span className="text-pro">Keep 97%</span> of every job.
-            </h1>
-            <p className="mt-5 max-w-xl text-lg text-ink-muted">
-              Stop paying $20–80 for leads that never pick up. {PRO_BRAND} is a flat
-              $0.30 per bid from your own wallet — you pick the jobs, you set the
-              price, and 96–97% hits your bank the moment the homeowner signs off.
-            </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <a href="/onboarding" className="btn-secondary text-base bg-pro text-white hover:bg-pro-dark">
-                Start earning with {PRO_BRAND}
-              </a>
-              <a href="https://github.com/mhklogs/profixit-android/releases/latest/download/ProFixit.apk" className="btn-primary text-base bg-pro text-white hover:bg-pro-dark">
-                Download the ProFixit app
-              </a>
-            </div>
-            <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-4">
-              {[
-                { value: '$0.30', label: 'per bid, flat' },
-                { value: '97%', label: 'of each job' },
-                { value: 'Instant', label: 'payout on sign-off' },
-                { value: '0', label: 'subscriptions' },
-              ].map((s) => (
-                <div key={s.label}>
-                  <p className="text-2xl font-extrabold">{s.value}</p>
-                  <p className="text-sm text-ink-muted">{s.label}</p>
-                </div>
-              ))}
-            </div>
+            <Reveal>
+              <Eyebrow>The worker side of {HOME_BRAND}</Eyebrow>
+            </Reveal>
+            <Reveal delay={0.1}>
+              <h1 className="mt-6 font-display text-4xl font-extrabold leading-[1.05] tracking-tight sm:text-5xl lg:text-[3.6rem]">
+                Own your lead flow.{' '}
+                <span className="text-gradient-ember">Keep 97%</span> of every job.
+              </h1>
+            </Reveal>
+            <Reveal delay={0.2}>
+              <p className="mt-5 max-w-xl text-lg text-zinc-400">
+                Stop paying $20–80 for leads that never pick up. {PRO_BRAND} is a flat
+                $0.30 per bid from your own wallet — you pick the jobs, you set the
+                price, and 96–97% hits your bank the moment the homeowner signs off.
+              </p>
+            </Reveal>
+            <Reveal delay={0.3}>
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                <a href="/onboarding" className="btn-ember text-base">
+                  Start earning with {PRO_BRAND}
+                </a>
+                <a
+                  href="https://github.com/mhklogs/profixit-android/releases/latest/download/ProFixit.apk"
+                  className="btn-ember-ghost text-base"
+                >
+                  Download the ProFixit app
+                </a>
+              </div>
+            </Reveal>
+            <Reveal delay={0.4}>
+              <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-4">
+                {[
+                  { value: '$0.30', label: 'per bid, flat' },
+                  { value: '97%', label: 'of each job' },
+                  { value: 'Instant', label: 'payout on sign-off' },
+                  { value: '0', label: 'subscriptions' },
+                ].map((s) => (
+                  <div key={s.label}>
+                    <p className="font-display text-2xl font-extrabold text-gradient-ember">{s.value}</p>
+                    <p className="text-sm text-zinc-500">{s.label}</p>
+                  </div>
+                ))}
+              </div>
+            </Reveal>
           </div>
-          <div className="relative">
-            <div className="overflow-hidden rounded-3xl shadow-2xl shadow-pro/25">
+
+          <Reveal delay={0.15} className="relative">
+            <div className="overflow-hidden rounded-3xl border border-white/10 shadow-ember-soft">
               <Image
                 src={IMG.contractorOnSite}
                 alt="A ProFixit contractor working a residential job"
@@ -116,22 +133,22 @@ export default function ForProsPage() {
                 priority
               />
             </div>
-            <div className="absolute -bottom-6 -left-6 hidden w-72 rounded-2xl bg-white p-5 shadow-xl sm:block">
-              <p className="text-xs font-semibold text-ink-muted uppercase tracking-wide">
+            <div className="absolute -bottom-6 -left-6 hidden w-72 rounded-2xl glass p-5 shadow-[0_20px_50px_-20px_rgba(0,0,0,0.9)] sm:block">
+              <p className="text-xs font-semibold uppercase tracking-wide text-ember">
                 Your wallet balance
               </p>
-              <p className="mt-1 text-3xl font-extrabold text-pro">$124.70</p>
-              <p className="text-xs text-ink-muted">+$0.30 debited per bid</p>
-              <div className="mt-3 rounded-lg bg-pro-soft px-3 py-2 text-xs font-medium text-pro">
+              <p className="mt-1 font-display text-3xl font-extrabold text-gradient-ember">$124.70</p>
+              <p className="text-xs text-zinc-400">+$0.30 debited per bid</p>
+              <div className="mt-3 rounded-lg border border-ember/25 bg-ember/10 px-3 py-2 text-xs font-medium text-ember">
                 Job #4821 paid out: $548.20 — instant
               </div>
             </div>
-          </div>
+          </Reveal>
         </div>
       </section>
 
       {/* STATUS BAR */}
-      <section className="border-y border-slate-100 bg-white">
+      <section className="border-y border-white/10 bg-night-900">
         <div className="mx-auto grid max-w-6xl grid-cols-2 gap-8 px-4 py-10 sm:px-6 md:grid-cols-4">
           {[
             { value: '$18.2K', label: 'Avg. annual pro earnings' },
@@ -140,153 +157,194 @@ export default function ForProsPage() {
             { value: '11 min', label: 'median time to first bid' },
           ].map((s) => (
             <div key={s.label} className="text-center">
-              <p className="text-3xl font-extrabold text-pro">{s.value}</p>
-              <p className="mt-1 text-sm text-ink-muted">{s.label}</p>
+              <p className="font-display text-3xl font-extrabold text-gradient-ember">{s.value}</p>
+              <p className="mt-1 text-sm text-zinc-500">{s.label}</p>
             </div>
           ))}
         </div>
       </section>
 
       {/* HOW IT WORKS */}
-      <section className="py-20">
+      <section className="bg-night-950 py-24">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
-          <div className="max-w-2xl">
-            <span className="badge bg-pro-soft text-pro">How it works</span>
-            <h2 className="mt-4 text-3xl font-extrabold tracking-tight sm:text-4xl">
+          <Reveal className="max-w-2xl">
+            <Eyebrow>How it works</Eyebrow>
+            <h2 className="mt-4 font-display text-3xl font-bold tracking-tight sm:text-4xl">
               Earn like a pro — the {PRO_BRAND} way
             </h2>
-          </div>
-          <div className="mt-10 grid gap-6 md:grid-cols-3">
-            {steps.map((s) => (
-              <div key={s.n} className="card relative p-7">
-                <span className="grid h-11 w-11 place-items-center rounded-xl bg-pro-soft text-pro font-extrabold">
-                  {s.n}
-                </span>
-                <h3 className="mt-4 text-lg font-bold">{s.t}</h3>
-                <p className="mt-2 text-sm text-ink-muted">{s.b}</p>
-              </div>
+          </Reveal>
+          <div className="mt-10 grid gap-5 md:grid-cols-3">
+            {steps.map((s, i) => (
+              <Reveal key={s.n} delay={i * 0.08} className="h-full">
+                <div className="glass h-full p-7 transition-colors duration-500 hover:border-ember/40">
+                  <span className="grid h-11 w-11 place-items-center rounded-xl bg-gradient-to-br from-ember-soft via-ember to-ember-deep font-extrabold text-ember-ink">
+                    {s.n}
+                  </span>
+                  <h3 className="mt-4 font-display text-lg font-semibold">{s.t}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-zinc-400">{s.b}</p>
+                </div>
+              </Reveal>
             ))}
           </div>
         </div>
       </section>
 
       {/* WHY BETTER */}
-      <section className="bg-white py-20">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+      <section className="relative overflow-hidden bg-night-900 py-24">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute left-1/2 top-0 h-[30rem] w-[50rem] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgba(212,175,55,0.08),transparent_65%)] blur-2xl"
+        />
+        <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
           <div className="mx-auto max-w-2xl text-center">
-            <span className="badge bg-pro-soft text-pro">No more lead-gen</span>
-            <h2 className="mt-4 text-3xl font-extrabold tracking-tight sm:text-4xl">
-              Why working {PRO_BRAND} beats working for platforms
-            </h2>
-            <p className="mt-3 text-ink-muted">
-              Legacy marketplaces profit from selling you homeowners. We profit only
-              when a job is completed — so every mechanic is aligned with your wallet.
-            </p>
+            <Reveal>
+              <Eyebrow>No more lead-gen</Eyebrow>
+            </Reveal>
+            <Reveal delay={0.1}>
+              <h2 className="mt-4 font-display text-3xl font-bold tracking-tight sm:text-4xl">
+                Why working {PRO_BRAND} beats working for platforms
+              </h2>
+            </Reveal>
+            <Reveal delay={0.2}>
+              <p className="mt-3 text-zinc-400">
+                Legacy marketplaces profit from selling you homeowners. We profit only
+                when a job is completed — so every mechanic is aligned with your wallet.
+              </p>
+            </Reveal>
           </div>
           <div className="mx-auto mt-12 max-w-3xl space-y-4">
-            {compares.map((c) => (
-              <div key={c.us} className="card grid gap-4 p-6 sm:grid-cols-2">
-                <div>
-                  <p className="flex items-center gap-2 text-sm font-bold text-pro">
-                    <span className="grid h-5 w-5 place-items-center rounded-full bg-pro-soft text-[11px]">✓</span>
-                    {PRO_BRAND}
-                  </p>
-                  <p className="mt-2 text-sm text-ink">{c.us}</p>
+            {compares.map((c, i) => (
+              <Reveal key={c.us} delay={i * 0.06}>
+                <div className="glass grid gap-4 p-6 sm:grid-cols-2">
+                  <div>
+                    <p className="flex items-center gap-2 text-sm font-bold text-ember">
+                      <span className="grid h-5 w-5 place-items-center rounded-full bg-ember/15">✓</span>
+                      {PRO_BRAND}
+                    </p>
+                    <p className="mt-2 text-sm text-zinc-200">{c.us}</p>
+                  </div>
+                  <div className="border-t border-white/10 pt-4 sm:border-l sm:border-t-0 sm:pl-5 sm:pt-0">
+                    <p className="text-sm font-bold text-zinc-500 line-through">Angi / Thumbtack</p>
+                    <p className="mt-2 text-sm text-zinc-500">{c.them}</p>
+                  </div>
                 </div>
-                <div className="border-t border-slate-100 pt-4 sm:border-l sm:border-t-0 sm:pl-5 sm:pt-0">
-                  <p className="text-sm font-bold text-ink-muted line-through">Angi / Thumbtack</p>
-                  <p className="mt-2 text-sm text-ink-muted">{c.them}</p>
-                </div>
-              </div>
+              </Reveal>
             ))}
           </div>
-          <div className="mx-auto mt-12 max-w-lg overflow-hidden rounded-2xl">
-            <div className="flex items-center justify-between bg-slate-100 px-6 py-4">
-              <p className="font-semibold">Old lead platforms</p>
-              <p className="font-bold text-ink-muted line-through">$280 take-home</p>
+          <Reveal delay={0.2}>
+            <div className="mx-auto mt-12 max-w-lg overflow-hidden rounded-3xl border border-white/10">
+              <div className="flex items-center justify-between bg-night-800 px-6 py-4">
+                <p className="font-semibold">Old lead platforms</p>
+                <p className="font-bold text-zinc-500 line-through">$280 take-home</p>
+              </div>
+              <div className="flex items-center justify-between bg-gradient-to-r from-ember-soft via-ember to-ember-deep px-6 py-4 text-ember-ink">
+                <p className="font-bold">{PRO_BRAND}</p>
+                <p className="font-extrabold">$383.70 take-home</p>
+              </div>
             </div>
-            <div className="flex items-center justify-between bg-pro px-6 py-4 text-white">
-              <p className="font-bold">{PRO_BRAND}</p>
-              <p className="font-extrabold">$383.70 take-home</p>
-            </div>
-          </div>
+          </Reveal>
         </div>
       </section>
 
       {/* USE CASES */}
-      <section className="py-20">
+      <section className="bg-night-950 py-24">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
-          <div className="max-w-2xl">
-            <span className="badge bg-pro-soft text-pro">Real ways to earn</span>
-            <h2 className="mt-4 text-3xl font-extrabold tracking-tight sm:text-4xl">
-          Built for how pros actually work
+          <Reveal className="max-w-2xl">
+            <Eyebrow>Real ways to earn</Eyebrow>
+            <h2 className="mt-4 font-display text-3xl font-bold tracking-tight sm:text-4xl">
+              Built for how pros actually work
             </h2>
-          </div>
+          </Reveal>
           <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {useCases.map((u) => (
-              <div key={u.t} className="card p-6">
-                <p className="text-3xl">{u.e}</p>
-                <h3 className="mt-3 font-bold">{u.t}</h3>
-                <p className="mt-1.5 text-sm text-ink-muted">{u.b}</p>
-              </div>
+            {useCases.map((u, i) => (
+              <Reveal key={u.t} delay={(i % 4) * 0.06} className="h-full">
+                <div className="glass h-full p-6 transition-colors duration-500 hover:border-ember/40">
+                  <p className="text-3xl">{u.e}</p>
+                  <h3 className="mt-3 font-display text-lg font-semibold">{u.t}</h3>
+                  <p className="mt-1.5 text-sm leading-relaxed text-zinc-400">{u.b}</p>
+                </div>
+              </Reveal>
             ))}
           </div>
         </div>
       </section>
 
       {/* APP DOWNLOAD */}
-      <section className="bg-slate-950 py-20 text-white">
-        <div className="mx-auto flex max-w-5xl flex-col items-center gap-8 px-4 text-center sm:px-6 lg:flex-row lg:justify-between lg:text-left">
+      <section className="relative overflow-hidden bg-night-900 py-24 text-white">
+        <div aria-hidden className="dot-grid-ember grid-fade pointer-events-none absolute inset-0 opacity-40" />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute left-1/2 top-1/2 h-[28rem] w-[40rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(212,175,55,0.12),transparent_60%)] blur-2xl"
+        />
+        <div className="relative mx-auto flex max-w-5xl flex-col items-center gap-8 px-4 text-center sm:px-6 lg:flex-row lg:justify-between lg:text-left">
           <div>
-            <span className="badge bg-pro text-white">Get the app</span>
-            <h2 className="mt-4 text-3xl font-extrabold tracking-tight sm:text-4xl">
-              {PRO_BRAND} for contractors — your earnings engine
-            </h2>
-            <p className="mt-3 max-w-lg text-slate-400">
-              One-tap bidding, a live job feed, your credit wallet, instant payouts
-              and ratings — all on a clean, dark, pro-built app. Android APK below;
-              iOS coming to the App Store.
-            </p>
+            <Reveal>
+              <Eyebrow>Get the app</Eyebrow>
+            </Reveal>
+            <Reveal delay={0.1}>
+              <h2 className="mt-4 font-display text-3xl font-bold tracking-tight sm:text-4xl">
+                {PRO_BRAND} for contractors — your earnings engine
+              </h2>
+            </Reveal>
+            <Reveal delay={0.2}>
+              <p className="mt-3 max-w-lg text-zinc-400">
+                One-tap bidding, a live job feed, your credit wallet, instant payouts
+                and ratings — all on a clean, dark, pro-built app. Android APK below;
+                iOS coming to the App Store.
+              </p>
+            </Reveal>
           </div>
-          <div className="flex flex-col gap-3">
-            <a
-              href="https://github.com/mhklogs/profixit-android/releases/latest/download/ProFixit.apk"
-              className="btn bg-white px-6 py-4 text-base text-slate-950 hover:bg-pro-soft"
-            >
-              Download {PRO_BRAND} for Android
-            </a>
-            <span className="text-xs text-slate-500">Direct APK · ~95 MB · Android 8.0+</span>
-          </div>
+          <Reveal delay={0.2}>
+            <div className="flex flex-col items-center gap-3">
+              <a
+                href="https://github.com/mhklogs/profixit-android/releases/latest/download/ProFixit.apk"
+                className="btn-ember px-6 py-4 text-base"
+              >
+                Download {PRO_BRAND} for Android
+              </a>
+              <span className="text-xs text-zinc-500">Direct APK · ~95 MB · Android 8.0+</span>
+            </div>
+          </Reveal>
         </div>
       </section>
 
       {/* FAQ */}
-      <section className="bg-white py-20">
+      <section className="bg-night-950 py-24">
         <div className="mx-auto max-w-3xl px-4 sm:px-6">
           <div className="text-center">
-            <span className="badge bg-pro-soft text-pro">FAQ</span>
-            <h2 className="mt-4 text-3xl font-extrabold tracking-tight sm:text-4xl">
-              Questions, answered
-            </h2>
+            <Reveal>
+              <Eyebrow>FAQ</Eyebrow>
+            </Reveal>
+            <Reveal delay={0.1}>
+              <h2 className="mt-4 font-display text-3xl font-bold tracking-tight sm:text-4xl">
+                Questions, answered
+              </h2>
+            </Reveal>
           </div>
           <div className="mt-10 space-y-3">
             {faq.map((f) => (
-              <details key={f.q} className="card group p-5 open:ring-1 open:ring-pro/30">
-                <summary className="flex cursor-pointer list-none items-center justify-between font-semibold [&::-webkit-details-marker]:hidden">
-                  {f.q}
-                  <span className="text-pro transition-transform group-open:rotate-45">＋</span>
-                </summary>
-                <p className="mt-3 text-sm text-ink-muted">{f.a}</p>
-              </details>
+              <Reveal key={f.q}>
+                <details className="group glass px-6 py-5 open:border-ember/40">
+                  <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-semibold text-white [&::-webkit-details-marker]:hidden">
+                    {f.q}
+                    <span className="flex-none text-ember transition-transform group-open:rotate-45">＋</span>
+                  </summary>
+                  <p className="mt-3 text-sm leading-relaxed text-zinc-400">{f.a}</p>
+                </details>
+              </Reveal>
             ))}
           </div>
-          <p className="mt-8 text-center text-sm text-ink-muted">
-            A homeowner? See the <Link href="/for-homeowners" className="font-semibold text-brand hover:underline">{HOME_BRAND} side</Link> — post a job free and watch pros bid.
+          <p className="mt-8 text-center text-sm text-zinc-500">
+            A homeowner? See the{' '}
+            <Link href="/for-homeowners" className="font-semibold text-ember hover:text-ember-soft">
+              {HOME_BRAND} side
+            </Link>{' '}
+            — post a job free and watch pros bid.
           </p>
         </div>
       </section>
 
       <Footer />
-    </>
+    </div>
   );
 }
