@@ -10,17 +10,19 @@
 
   body {
     @apply bg-canvas text-ink;
-    /* Slightly larger base size + generous line height: the whole point of
-       the redesign is that long copy stays comfortable to read. */
     font-size: 17px;
     line-height: 1.65;
   }
 
+  /* Cinzel editorial serif for every heading — the HomeFix OS display voice. */
   h1,
   h2,
   h3,
   h4 {
-    line-height: 1.15;
+    @apply font-display;
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
     text-wrap: balance;
   }
 
@@ -32,25 +34,24 @@
     @apply bg-brand-soft text-brand-dark;
   }
 
-  /* Visible, consistent keyboard focus everywhere. */
   :focus-visible {
     @apply outline-none ring-2 ring-brand ring-offset-2 ring-offset-white;
   }
 }
 
 @layer components {
-  /* Every button keeps a 44px minimum so it stays comfortably tappable. */
+  /* Pill buttons with a gentle lift, in the warm flat-card language. */
   .btn {
-    @apply inline-flex min-h-[44px] items-center justify-center gap-2 rounded-xl px-5 py-3 text-center font-semibold transition-colors disabled:opacity-50 disabled:pointer-events-none;
+    @apply inline-flex min-h-[44px] items-center justify-center gap-2 rounded-full px-6 py-3 text-center font-semibold transition-all duration-200 disabled:opacity-50 disabled:pointer-events-none;
   }
   .btn-primary {
-    @apply btn bg-brand text-white shadow-sm hover:bg-brand-dark;
+    @apply btn bg-brand text-white shadow-sm hover:-translate-y-0.5 hover:bg-brand-dark hover:shadow-glow;
   }
   .btn-secondary {
     @apply btn bg-brand-soft text-brand-dark hover:bg-[#FFE7CB];
   }
   .btn-outline {
-    @apply btn border border-line bg-white text-ink hover:border-brand/40 hover:bg-tint;
+    @apply btn border border-line bg-surface text-ink hover:-translate-y-0.5 hover:border-brand hover:text-brand;
   }
   .btn-pro {
     @apply btn bg-pro text-white hover:bg-pro-dark;
@@ -58,9 +59,15 @@
   .btn-ghost {
     @apply btn text-ink-muted hover:bg-tint hover:text-ink;
   }
+
+  /* Flat, hairline-bordered cards — no heavy orange wash. */
   .card {
     @apply rounded-2xl border border-line bg-surface shadow-card;
   }
+  .card-hover {
+    @apply transition-all duration-300 hover:-translate-y-1 hover:border-brand/40 hover:shadow-card-hover;
+  }
+
   .input {
     @apply w-full rounded-xl border border-line bg-white px-4 py-3 text-base text-ink placeholder:text-stone-400 focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/20;
   }
@@ -70,13 +77,27 @@
   .label {
     @apply mb-1.5 block text-sm font-medium text-ink;
   }
+
+  /* Small letter-spaced pill label. */
   .badge {
-    @apply inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-semibold;
+    @apply inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold;
   }
 
-  /* Shared section shell — keeps vertical rhythm consistent across the page. */
+  /* Quiet uppercase eyebrow above section headings. */
+  .eyebrow {
+    @apply text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-brand;
+  }
+  .eyebrow-light {
+    @apply text-brand-light;
+  }
+
+  /* Tappable service chip. */
+  .chip {
+    @apply inline-flex min-h-[40px] items-center gap-1.5 rounded-full border border-line bg-surface px-4 text-sm font-medium text-ink transition-colors hover:border-brand hover:bg-brand-soft hover:text-brand;
+  }
+
   .section {
-    @apply py-20 sm:py-24;
+    @apply py-16 sm:py-20 lg:py-24;
   }
   .section-tint {
     @apply bg-tint;
@@ -85,8 +106,47 @@
     @apply mx-auto w-full max-w-6xl px-4 sm:px-6;
   }
 
-  /* Visible only to screen readers, used for the skip link. */
+  .rule {
+    @apply border-t border-line;
+  }
+
   .sr-only-focusable {
     @apply sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[60] focus:rounded-lg focus:bg-brand focus:px-4 focus:py-2 focus:font-semibold focus:text-white;
+  }
+}
+
+@layer utilities {
+  .dot-grid {
+    background-image: radial-gradient(rgba(194, 65, 12, 0.14) 1px, transparent 1px);
+    background-size: 22px 22px;
+  }
+  .dot-grid-light {
+    background-image: radial-gradient(rgba(255, 255, 255, 0.12) 1px, transparent 1px);
+    background-size: 22px 22px;
+  }
+  .marquee-mask {
+    -webkit-mask-image: linear-gradient(to right, transparent, black 7%, black 93%, transparent);
+    mask-image: linear-gradient(to right, transparent, black 7%, black 93%, transparent);
+  }
+  .marquee-track {
+    animation: fixit-marquee 42s linear infinite;
+  }
+}
+
+@keyframes fixit-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
+  html {
+    scroll-behavior: auto;
   }
 }
