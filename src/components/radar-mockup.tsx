@@ -41,58 +41,57 @@ export default function RadarMockup() {
   }, [bids.length]);
 
   return (
-    <div className="relative aspect-square w-full max-w-lg mx-auto">
-      <div className="absolute inset-0 rounded-full bg-brand/5" />
-      <div className="absolute inset-[18%] rounded-full bg-brand/5" />
-      <div className="absolute inset-[36%] rounded-full bg-brand/5" />
-      <div className="absolute left-1/2 top-1/2 h-[2px] w-[120%] -translate-x-1/2 -translate-y-1/2 bg-brand/10" />
-      <div className="absolute left-1/2 top-1/2 h-[120%] w-[2px] -translate-x-1/2 -translate-y-1/2 bg-brand/10" />
+    <div className="relative mx-auto aspect-square w-full max-w-lg">
+      <div className="absolute inset-0 rounded-full bg-ember/5" />
+      <div className="absolute inset-[18%] rounded-full bg-ember/5" />
+      <div className="absolute inset-[36%] rounded-full bg-ember/5" />
+      <div className="absolute left-1/2 top-1/2 h-[2px] w-[120%] -translate-x-1/2 -translate-y-1/2 bg-ember/10" />
+      <div className="absolute left-1/2 top-1/2 h-[120%] w-[2px] -translate-x-1/2 -translate-y-1/2 bg-ember/10" />
 
       {/* Sweeping beam */}
       <div
         className="absolute left-1/2 top-1/2 h-1/2 w-1/2 origin-bottom-left"
         style={{
           transform: `rotate(${pulse * 90}deg)`,
-          background:
-            'conic-gradient(from 0deg, rgba(194,65,12,0.07), rgba(194,65,12,0) 60deg)',
+          background: 'conic-gradient(from 0deg, rgba(233,196,106,0.18), rgba(233,196,106,0) 60deg)',
           transition: 'transform 1400ms cubic-bezier(0.4, 0, 0.2, 1)',
         }}
       />
 
       {/* Center job pin */}
       <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-        <div className="relative grid h-14 w-14 place-items-center rounded-2xl bg-brand text-white shadow-lg shadow-brand/30">
-          <span className="animate-ping absolute inline-flex h-full w-full rounded-2xl bg-brand opacity-40" />
+        <div className="relative grid h-14 w-14 place-items-center rounded-2xl bg-gradient-to-br from-ember-soft via-ember to-ember-deep text-ember-ink shadow-ember-glow">
+          <span className="animate-ping absolute inline-flex h-full w-full rounded-2xl bg-ember opacity-40" />
           <svg className="relative h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
             <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4m0 4h.01M20.23 15.36a9 9 0 10-16.46 0L9 21h6l5.23-5.64z" />
           </svg>
         </div>
-        <p className="mt-2 text-center text-sm font-bold text-ink">
+        <p className="mt-2 text-center text-sm font-bold text-white">
           Water heater
-          <span className="block font-normal text-ink-muted">leaking · live now</span>
+          <span className="block font-normal text-zinc-400">leaking · live now</span>
         </p>
       </div>
 
       {/* Incoming bid pills */}
-      {bids.map((b, idx) => (
+      {bids.map((b) => (
         <div
           key={b.id}
           className="absolute w-40"
           style={{ left: `calc(50% + ${b.x}px)`, top: `calc(50% + ${b.y}px)` }}
         >
           <div
-            className="rounded-xl border border-line bg-white p-3 shadow-card"
-            style={{ animation: `fadeIn 500ms ease both`, animationDelay: `${(bids.length - idx) * -1 * 0}ms` }}
+            className="rounded-xl border border-ember/25 bg-night-850/90 p-3 shadow-night-card backdrop-blur-md"
+            style={{ animation: `fadeIn 500ms ease both` }}
           >
-            <p className="truncate text-xs font-semibold text-ink">{b.contractor}</p>
+            <p className="truncate text-xs font-semibold text-white">{b.contractor}</p>
             <div className="mt-1 flex items-end justify-between">
-              <span className="text-sm font-bold text-brand">${b.price}</span>
-              <span className="text-xs text-ink-muted">arrives in {b.eta} min</span>
+              <span className="text-sm font-bold text-ember">${b.price}</span>
+              <span className="text-xs text-zinc-400">arrives in {b.eta} min</span>
             </div>
-            <div className="mt-1 flex items-center gap-1 text-xs text-ink-muted">
-              <span className="text-amber-500">★</span>
+            <div className="mt-1 flex items-center gap-1 text-xs text-zinc-400">
+              <span className="text-ember">★</span>
               {b.rating.toFixed(1)}
-              <span className="rounded-full bg-brand-soft px-2 py-px font-semibold text-brand-dark">Verified</span>
+              <span className="rounded-full bg-ember/15 px-2 py-px font-semibold text-ember-soft">Verified</span>
             </div>
           </div>
         </div>

@@ -1,19 +1,18 @@
 import type { Metadata } from 'next';
-import { Cinzel, Plus_Jakarta_Sans } from 'next/font/google';
+import { Sora, Inter } from 'next/font/google';
 import './globals.css';
 import { HOME_BRAND, PLATFORM_NAME, PRO_BRAND } from '@/shared';
 
-// Editorial type system, matching the HomeFix OS design language: Cinzel for
-// display headings, Plus Jakarta Sans for body copy.
-const jakarta = Plus_Jakarta_Sans({
+// Nexxy-style type system: Sora for display headlines, Inter for body copy.
+const inter = Inter({
   subsets: ['latin'],
   variable: '--font-sans',
   display: 'swap',
 });
 
-const cinzel = Cinzel({
+const sora = Sora({
   subsets: ['latin'],
-  weight: ['500', '600', '700'],
+  weight: ['400', '500', '600', '700', '800'],
   variable: '--font-display',
   display: 'swap',
 });
@@ -97,7 +96,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${jakarta.variable} ${cinzel.variable} bg-canvas font-sans text-ink antialiased`}>
+      <body className={`${inter.variable} ${sora.variable} bg-canvas font-sans text-ink antialiased`}>
         {children}
       </body>
     </html>

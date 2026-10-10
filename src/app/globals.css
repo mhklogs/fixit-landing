@@ -113,6 +113,73 @@
   .sr-only-focusable {
     @apply sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[60] focus:rounded-lg focus:bg-brand focus:px-4 focus:py-2 focus:font-semibold focus:text-white;
   }
+
+  /* ---------- Nexxy-style dark theme part ---------- */
+
+  /* Frosted dark panels. */
+  .glass {
+    @apply rounded-3xl border border-white/10 bg-white/[0.04] backdrop-blur-md;
+  }
+  .glass-gold {
+    @apply rounded-3xl border border-ember/25 bg-gradient-to-b from-white/[0.07] to-white/[0.02] backdrop-blur-md;
+  }
+
+  /* Warm white-to-gold text gradient (headlines). */
+  .text-gradient-ember {
+    @apply bg-gradient-to-b from-ember-soft via-ember to-ember-deep bg-clip-text text-transparent;
+  }
+
+  /* Gold accent buttons with a hover light sweep. */
+  .btn-ember {
+    @apply relative inline-flex min-h-[44px] items-center justify-center gap-2 overflow-hidden rounded-full px-7 py-3 text-center font-semibold text-ember-ink shadow-ember-soft transition-all duration-300 hover:-translate-y-0.5 hover:shadow-ember-glow;
+    background-image: linear-gradient(135deg, #f8ebc3 0%, #e9c46a 40%, #d4af37 75%, #b08d23 100%);
+  }
+  .btn-ember::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.55), transparent);
+    transition: transform 0.7s ease;
+  }
+  .btn-ember:hover::after {
+    transform: translateX(100%);
+  }
+  .btn-ember-ghost {
+    @apply inline-flex min-h-[44px] items-center justify-center gap-2 rounded-full border border-ember/30 px-7 py-3 text-center font-semibold text-ember transition-all duration-300 hover:-translate-y-0.5 hover:bg-ember/10 hover:text-ember-soft;
+  }
+
+  /* Warm gold chip used for the eyebrow label. */
+  .ember-pill {
+    @apply inline-flex items-center gap-2 rounded-full border border-ember/25 bg-ember/10 px-4 py-1.5 text-xs font-medium uppercase tracking-[0.22em] text-ember;
+  }
+
+  /* Faint gold dot grid + soft radial fade for dark sections. */
+  .dot-grid-ember {
+    background-image: radial-gradient(rgba(233, 196, 106, 0.12) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+  .grid-fade {
+    -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+    mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+  }
+
+  :where(.theme-dark) :focus-visible {
+    @apply ring-ember ring-offset-2 ring-offset-night-950;
+  }
+  :where(.theme-dark) ::selection {
+    @apply bg-ember/30 text-ember-soft;
+  }
+}
+
+@layer utilities {
+  /* Keep tilt cards from flattening their 3D children. */
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+  .will-change-transform {
+    will-change: transform;
+  }
 }
 
 @layer utilities {
